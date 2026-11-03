@@ -1,0 +1,228 @@
+/**
+ * Portfolio case-study meta boxes (admin).
+ */
+
+.wpc-metabox {
+	--wpc-accent: #4f46e5;
+	--wpc-border: #dcdcde;
+	--wpc-muted: #646970;
+	padding: 4px 0;
+}
+
+.wpc-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px 24px;
+}
+
+@media (max-width: 782px) {
+	.wpc-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.wpc-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-width: 0;
+}
+
+.wpc-field-wide {
+	grid-column: 1 / -1;
+}
+
+.wpc-label {
+	font-weight: 600;
+	font-size: 13px;
+	color: #1d2327;
+}
+
+.wpc-desc {
+	color: var(--wpc-muted);
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+.wpc-input {
+	width: 100%;
+	max-width: 100%;
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	padding: 6px 10px;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.wpc-input:focus {
+	border-color: var(--wpc-accent);
+	box-shadow: 0 0 0 1px var(--wpc-accent);
+	outline: none;
+}
+
+.wpc-input-number {
+	max-width: 140px;
+}
+
+textarea.wpc-input {
+	resize: vertical;
+}
+
+/* ---- Single image picker ------------------------------------------- */
+
+.wpc-image-control {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+}
+
+.wpc-image-preview {
+	width: 96px;
+	height: 96px;
+	border: 1px dashed #c3c4c7;
+	border-radius: 8px;
+	background: #f6f7f7;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	flex: 0 0 auto;
+}
+
+.wpc-image-preview img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+.wpc-image-control.has-image .wpc-image-preview {
+	border-style: solid;
+}
+
+.wpc-image-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+	padding-top: 4px;
+}
+
+.wpc-image-remove {
+	color: #b32d2e;
+}
+
+.wpc-image-control:not(.has-image) .wpc-image-remove {
+	display: none;
+}
+
+/* ---- Gallery -------------------------------------------------------- */
+
+.wpc-gallery-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 10px;
+	min-height: 10px;
+}
+
+.wpc-gallery-item {
+	position: relative;
+	width: 92px;
+	height: 92px;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid var(--wpc-border);
+	cursor: grab;
+	background: #f6f7f7;
+}
+
+.wpc-gallery-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	pointer-events: none;
+}
+
+.wpc-gallery-remove {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 22px;
+	height: 22px;
+	border: none;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.65);
+	color: #fff;
+	font-size: 14px;
+	line-height: 1;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.wpc-gallery-remove:hover {
+	background: #b32d2e;
+}
+
+.wpc-gallery-grid:empty + .wpc-gallery-add {
+	margin-top: 0;
+}
+
+/* ---- Repeatable lists ------------------------------------------------ */
+
+.wpc-repeater-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.wpc-repeater-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.wpc-repeater-handle {
+	color: #a7aaad;
+	cursor: grab;
+	font-size: 12px;
+	letter-spacing: -3px;
+	padding: 0 4px;
+	user-select: none;
+	flex: 0 0 auto;
+}
+
+.wpc-repeater-row .wpc-input {
+	flex: 1 1 auto;
+}
+
+.wpc-repeater-remove {
+	color: #b32d2e;
+	font-size: 18px;
+	line-height: 1;
+	text-decoration: none;
+	flex: 0 0 auto;
+	padding: 4px;
+}
+
+.wpc-repeater-remove:hover {
+	color: #8a2424;
+}
+
+.wpc-repeater-add {
+	align-self: flex-start;
+}
+
+/* Meta box chrome */
+[id^="wpc-"] .inside {
+	margin-top: 0;
+}
+
+[id^="wpc-"] .hndle {
+	border-bottom: 1px solid #f0f0f1;
+}

@@ -15,6 +15,10 @@ add_action('wp_enqueue_scripts', function () {
     );
 });
 
+// Portfolio case-study fields (admin) + front-end renderer.
+require_once get_stylesheet_directory() . '/inc/portfolio-meta.php';
+require_once get_stylesheet_directory() . '/inc/portfolio-frontend.php';
+
 // Portfolio CPT + Taxonomies
 add_action('init', function () {
 

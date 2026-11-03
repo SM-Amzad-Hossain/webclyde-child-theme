@@ -47,10 +47,128 @@ function wpc_meta_groups() {
 }
 
 /**
+ * Preset choices for the dropdown fields.
+ *
+ * Each list is filterable so you can add / remove options without editing
+ * the theme, e.g. from a small plugin or the child theme's functions.php:
+ *
+ *     add_filter( 'wpc_industry_options', function ( $options ) {
+ *         $options[] = 'Aerospace';
+ *         return $options;
+ *     } );
+ *
+ * Available filters: wpc_industry_options, wpc_platform_options,
+ *                    wpc_services_options, wpc_timeline_options.
+ *
+ * @param string $key Field key.
+ * @return string[] Preset options (empty for non-dropdown fields).
+ */
+function wpc_field_options( $key ) {
+	$presets = [
+		'industry' => [
+			'Beauty & Skincare',
+			'Fashion & Apparel',
+			'E-commerce & Retail',
+			'Food & Beverage',
+			'Restaurant & Cafe',
+			'Health & Wellness',
+			'Fitness & Sports',
+			'Healthcare & Medical',
+			'Education & E-learning',
+			'Finance & Fintech',
+			'Real Estate',
+			'Travel & Hospitality',
+			'Technology & SaaS',
+			'Professional Services',
+			'Legal Services',
+			'Manufacturing',
+			'Automotive',
+			'Entertainment & Media',
+			'Non-profit & Charity',
+			'Jewelry & Accessories',
+			'Home & Furniture',
+			'Electronics',
+			'Construction',
+			'Logistics & Transport',
+			'Agriculture',
+		],
+		'platform' => [
+			'WordPress',
+			'WordPress + WooCommerce',
+			'WordPress + Elementor',
+			'WooCommerce',
+			'Shopify',
+			'Shopify Plus',
+			'Laravel',
+			'React',
+			'Next.js',
+			'Vue.js',
+			'Node.js',
+			'Webflow',
+			'Wix',
+			'Squarespace',
+			'Magento',
+			'BigCommerce',
+			'Custom / Headless',
+			'PHP (Custom)',
+			'HTML / CSS / JS',
+		],
+		'services' => [
+			'UX/UI Design',
+			'Web Design',
+			'Web Development',
+			'WordPress Development',
+			'WooCommerce Development',
+			'Elementor Development',
+			'Shopify Development',
+			'E-commerce Development',
+			'Speed Optimization',
+			'Performance Optimization',
+			'SEO',
+			'Conversion Optimization (CRO)',
+			'Branding & Logo Design',
+			'Custom Plugin Development',
+			'API Integration',
+			'Migration',
+			'Maintenance & Support',
+			'Content Writing',
+			'Digital Marketing',
+		],
+		'timeline' => [
+			'1 week',
+			'2 weeks',
+			'3 weeks',
+			'4 weeks',
+			'5 weeks',
+			'6 weeks',
+			'8 weeks',
+			'10 weeks',
+			'12 weeks',
+			'3 months',
+			'4 months',
+			'6 months',
+			'1 year',
+			'Ongoing',
+		],
+	];
+
+	$options = $presets[ $key ] ?? [];
+
+	/**
+	 * Filter the preset options for a dropdown field.
+	 *
+	 * @param string[] $options Preset options.
+	 * @param string   $key     Field key.
+	 */
+	return apply_filters( 'wpc_' . $key . '_options', $options, $key );
+}
+
+/**
  * Central field registry.
  *
  * Types: text, url, textarea, number, image (attachment ID),
- *        gallery (ordered attachment IDs), repeatable (list of strings).
+ *        gallery (ordered attachment IDs), repeatable (list of strings),
+ *        select (dropdown with presets + custom), multiselect (checkboxes + custom).
  *
  * @return array<string,array> field key => config.
  */
@@ -85,28 +203,27 @@ function wpc_meta_fields() {
 		],
 		'services'              => [
 			'group'       => 'details',
-			'type'        => 'text',
+			'type'        => 'multiselect',
 			'label'       => __( 'Services', 'webclyde' ),
-			'description' => __( 'Comma-separated. Each service is shown as a badge.', 'webclyde' ),
-			'placeholder' => __( 'e.g. UX/UI Design, WooCommerce Development, Speed Optimization', 'webclyde' ),
+			'description' => __( 'Tick the services provided — each is shown as a badge. Add anything else in the custom box.', 'webclyde' ),
 		],
 		'timeline'              => [
 			'group'       => 'details',
-			'type'        => 'text',
+			'type'        => 'select',
 			'label'       => __( 'Timeline', 'webclyde' ),
-			'placeholder' => __( 'e.g. 6 weeks', 'webclyde' ),
+			'description' => __( 'Pick a duration, or choose “Other” to type your own.', 'webclyde' ),
 		],
 		'industry'              => [
 			'group'       => 'details',
-			'type'        => 'text',
+			'type'        => 'select',
 			'label'       => __( 'Industry', 'webclyde' ),
-			'placeholder' => __( 'e.g. Beauty & Skincare', 'webclyde' ),
+			'description' => __( 'Pick an industry, or choose “Other” to type your own.', 'webclyde' ),
 		],
 		'platform'              => [
 			'group'       => 'details',
-			'type'        => 'text',
+			'type'        => 'select',
 			'label'       => __( 'Platform', 'webclyde' ),
-			'placeholder' => __( 'e.g. WordPress + WooCommerce', 'webclyde' ),
+			'description' => __( 'Pick a platform, or choose “Other” to type your own.', 'webclyde' ),
 		],
 		'location'              => [
 			'group'       => 'details',
@@ -303,6 +420,19 @@ function wpc_sanitize_value( $type, $value ) {
 			$items = array_map( 'trim', $items );
 			return array_values( array_filter( $items, 'strlen' ) );
 
+		case 'select':
+			// Single chosen value (a preset or a custom string).
+			return sanitize_text_field( (string) $value );
+
+		case 'multiselect':
+			// Accepts an array (checkboxes / REST) or a comma-separated string.
+			// Stored as a comma-separated string so the front-end is unchanged.
+			$items = is_array( $value ) ? $value : explode( ',', (string) $value );
+			$items = array_map( 'sanitize_text_field', $items );
+			$items = array_map( 'trim', $items );
+			$items = array_values( array_unique( array_filter( $items, 'strlen' ) ) );
+			return implode( ', ', $items );
+
 		case 'text':
 		default:
 			return sanitize_text_field( (string) $value );
@@ -471,7 +601,7 @@ function wpc_render_field( $post_id, $key, $field ) {
 	$value = wpc_get_meta( $post_id, $key );
 	$name  = 'wpc[' . $key . ']';
 	$type  = $field['type'];
-	$wide  = in_array( $type, [ 'textarea', 'gallery', 'repeatable' ], true ) || 'description' === $key;
+	$wide  = in_array( $type, [ 'textarea', 'gallery', 'repeatable', 'multiselect' ], true ) || 'description' === $key;
 
 	echo '<div class="wpc-field wpc-field-' . esc_attr( $type ) . ( $wide ? ' wpc-field-wide' : '' ) . '" data-key="' . esc_attr( $key ) . '">';
 	echo '<span class="wpc-label">' . esc_html( $field['label'] ) . '</span>';
@@ -520,6 +650,14 @@ function wpc_render_field( $post_id, $key, $field ) {
 
 		case 'repeatable':
 			wpc_render_repeatable_control( $name, (array) $value, $field );
+			break;
+
+		case 'select':
+			wpc_render_select_control( $name, (string) $value, $key );
+			break;
+
+		case 'multiselect':
+			wpc_render_multiselect_control( $name, (string) $value, $key );
 			break;
 	}
 
@@ -609,6 +747,82 @@ function wpc_render_repeatable_control( $name, $items, $field ) {
 }
 
 /**
+ * Single-select dropdown control with an "Other / custom" escape hatch.
+ *
+ * The <select> posts the chosen preset (or the sentinel "__custom__"). A
+ * companion text input posts the custom value; the save handler swaps it in
+ * when the sentinel is selected. Stored values that aren't presets reopen
+ * with "Other" selected and the value in the text box, so nothing is lost.
+ *
+ * @param string $name  Input name, e.g. wpc[industry].
+ * @param string $value Stored value.
+ * @param string $key   Field key (used to look up presets).
+ */
+function wpc_render_select_control( $name, $value, $key ) {
+	$options   = wpc_field_options( $key );
+	$is_custom = ( '' !== $value && ! in_array( $value, $options, true ) );
+	$selected  = $is_custom ? '__custom__' : $value;
+	$custom    = 'wpc[' . $key . '_custom]';
+	?>
+	<div class="wpc-select-control">
+		<select class="wpc-input wpc-select" name="<?php echo esc_attr( $name ); ?>">
+			<option value="" <?php selected( $selected, '' ); ?>><?php esc_html_e( '— Select —', 'webclyde' ); ?></option>
+			<?php foreach ( $options as $opt ) : ?>
+				<option value="<?php echo esc_attr( $opt ); ?>" <?php selected( $selected, $opt ); ?>><?php echo esc_html( $opt ); ?></option>
+			<?php endforeach; ?>
+			<option value="__custom__" <?php selected( $selected, '__custom__' ); ?>><?php esc_html_e( 'Other (type your own)…', 'webclyde' ); ?></option>
+		</select>
+		<input type="text"
+			class="wpc-input wpc-select-custom"
+			name="<?php echo esc_attr( $custom ); ?>"
+			value="<?php echo esc_attr( $is_custom ? $value : '' ); ?>"
+			placeholder="<?php esc_attr_e( 'Type a custom value', 'webclyde' ); ?>"
+			<?php echo $is_custom ? '' : 'style="display:none;"'; ?> />
+	</div>
+	<?php
+}
+
+/**
+ * Multi-select checkbox control with a custom comma-separated box.
+ *
+ * Presets render as checkboxes (wpc[key][]); anything already stored that
+ * isn't a preset is surfaced in the custom box. The save handler merges the
+ * checked presets with the custom entries and stores a comma-separated
+ * string, so the front-end chips and REST schema are unchanged.
+ *
+ * @param string $name  Input name, e.g. wpc[services].
+ * @param string $value Stored comma-separated value.
+ * @param string $key   Field key (used to look up presets).
+ */
+function wpc_render_multiselect_control( $name, $value, $key ) {
+	$options     = wpc_field_options( $key );
+	$current     = array_values( array_filter( array_map( 'trim', explode( ',', $value ) ), 'strlen' ) );
+	$custom_vals = array_values( array_diff( $current, $options ) );
+	$checkbox    = $name . '[]';
+	$custom      = 'wpc[' . $key . '_custom]';
+	?>
+	<div class="wpc-multiselect-control">
+		<div class="wpc-checkbox-grid">
+			<?php foreach ( $options as $opt ) : ?>
+				<label class="wpc-checkbox">
+					<input type="checkbox"
+						name="<?php echo esc_attr( $checkbox ); ?>"
+						value="<?php echo esc_attr( $opt ); ?>"
+						<?php checked( in_array( $opt, $current, true ) ); ?> />
+					<span><?php echo esc_html( $opt ); ?></span>
+				</label>
+			<?php endforeach; ?>
+		</div>
+		<input type="text"
+			class="wpc-input wpc-multiselect-custom"
+			name="<?php echo esc_attr( $custom ); ?>"
+			value="<?php echo esc_attr( implode( ', ', $custom_vals ) ); ?>"
+			placeholder="<?php esc_attr_e( 'Other services, comma-separated', 'webclyde' ); ?>" />
+	</div>
+	<?php
+}
+
+/**
  * Save all case-study fields.
  *
  * @param int $post_id Post ID being saved.
@@ -634,6 +848,17 @@ function wpc_save_meta( $post_id ) {
 		// Gallery arrives as a comma-separated string from the hidden input.
 		if ( 'gallery' === $field['type'] ) {
 			$value = isset( $raw[ $key ] ) ? explode( ',', (string) $raw[ $key ] ) : [];
+		} elseif ( 'select' === $field['type'] ) {
+			// "__custom__" means "use the companion text box instead".
+			$value = $raw[ $key ] ?? '';
+			if ( '__custom__' === $value ) {
+				$value = $raw[ $key . '_custom' ] ?? '';
+			}
+		} elseif ( 'multiselect' === $field['type'] ) {
+			// Checked presets arrive as an array; custom entries as a CSV string.
+			$checked = isset( $raw[ $key ] ) ? (array) $raw[ $key ] : [];
+			$extra   = isset( $raw[ $key . '_custom' ] ) ? explode( ',', (string) $raw[ $key . '_custom' ] ) : [];
+			$value   = array_merge( $checked, $extra );
 		} else {
 			$value = $raw[ $key ] ?? ( 'repeatable' === $field['type'] ? [] : '' );
 		}

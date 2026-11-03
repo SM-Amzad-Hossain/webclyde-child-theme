@@ -218,6 +218,65 @@ textarea.wpc-input {
 	align-self: flex-start;
 }
 
+/* ---- Dropdown (select) + custom value ------------------------------- */
+
+.wpc-select-control {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.wpc-select {
+	cursor: pointer;
+	background-color: #fff;
+}
+
+.wpc-select-custom {
+	border-style: dashed;
+}
+
+/* ---- Multi-select checkboxes (services) ----------------------------- */
+
+.wpc-multiselect-control {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.wpc-checkbox-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 6px 16px;
+	padding: 12px 14px;
+	border: 1px solid var(--wpc-border);
+	border-radius: 6px;
+	background: #f6f7f7;
+}
+
+.wpc-checkbox {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13px;
+	line-height: 1.4;
+	cursor: pointer;
+	padding: 2px 0;
+}
+
+.wpc-checkbox input[type="checkbox"] {
+	margin: 0;
+	flex: 0 0 auto;
+}
+
+.wpc-checkbox input[type="checkbox"]:checked + span {
+	color: var(--wpc-accent);
+	font-weight: 600;
+}
+
+.wpc-multiselect-custom {
+	border-style: dashed;
+}
+
 /* Meta box chrome */
 [id^="wpc-"] .inside {
 	margin-top: 0;

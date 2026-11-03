@@ -1,0 +1,200 @@
+/*
+Theme Name: webclyde-child-theme
+Theme URI: https://webclyde.com
+Author: webclyde
+Author URI: https://webclyde.com
+Description: A premium web development & digital agency theme. Built for high-performance, featuring high-end GSAP animations and modern Elementor layouts.
+Version: 1.2.2
+Template: hello-elementor
+Text Domain: webclyde
+*/
+
+/* ==========================================================================
+   TABLET FRAME - ELEMENTOR WIDGET
+   --------------------------------------------------------------------------
+   Used by the "Tablet Frame" widget registered in functions.php.
+
+   How the alignment works
+   -----------------------
+   The tablet mockup is a photo taken at an angle, so the image inside it has
+   to be perspective-warped to match. The transform below was solved against
+   the four corners of the screen area of this exact mockup, so the image lands
+   inside the bezel with ~0px error.
+
+   The perspective distance must scale together with the widget, otherwise the
+   image drifts outside the frame (too big at one side, a gap at the other).
+   It is therefore stored in a custom property, --tfw-p, which the small
+   script in functions.php sets to the exact pixel value on load and on resize.
+   The cqw fallback below covers the very first paint and no-JS situations on
+   modern browsers.
+
+   Safety net: .tfw has overflow:hidden, so even in a worst case nothing can be
+   painted outside the widget's own box (on top of the bezel).
+   ========================================================================== */
+
+.tfw {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0;
+  container-type: inline-size;
+
+  /* Responsive safety net.
+     The height of the widget comes from the ::before ratio below, but some
+     CSS optimisers (WP Rocket / LiteSpeed "remove unused CSS") strip empty
+     pseudo elements - that collapses the height and the widget then overlaps
+     the next section on small screens. aspect-ratio keeps the box correct
+     even if ::before disappears. Both resolve to the same height, so nothing
+     is doubled. */
+  aspect-ratio: 1683 / 987;
+  height: auto;
+  min-height: 0;
+
+  /* Never let the widget grow or stretch inside an Elementor flex container,
+     and keep its painting (and the 3D transformed image) in its own layer so
+     it cannot overlap neighbouring widgets. */
+  flex: 0 0 auto;
+  align-self: flex-start;
+  isolation: isolate;
+  z-index: 0;
+
+  /* perspective distance = 207.962% of the widget width */
+  --tfw-p: 2400px;
+
+  /* Fine nudge of the image inside the screen (single place to tweak).
+     Positive dx moves the image right, positive dy moves it down.
+     The values are proportional to the widget width, so the image keeps the
+     same position at every screen size (5px / -6px when the widget is
+     1100px wide). Use plain px if you want a fixed offset instead. */
+  --tfw-dx: 5px;
+  --tfw-dy: -6px;
+}
+
+@supports (width: 1cqw) {
+  .tfw {
+    --tfw-p: 207.962cqw;
+
+    /* same nudge, but scaled with the widget width: 1100px -> 5px / -6px */
+    --tfw-dx: 0.4545cqw;
+    --tfw-dy: -0.5455cqw;
+  }
+}
+
+/* Stage height = width x (987 / 1683). The padding trick keeps the ratio
+   working even if another stylesheet overrides aspect-ratio. */
+.tfw::before {
+  content: "";
+  display: block;
+  padding-top: 58.6453%;
+}
+
+/* The screenshot */
+.tfw .tfw-shot {
+	position: absolute;
+	left: 2px;
+	top: -4px;
+	width: 87.9382%;
+	height: 100%;
+	max-width: none;
+	min-width: 0;
+	display: block;
+	transform-origin: 0 0;
+	backface-visibility: hidden;
+	transform: perspective(209.9620cqw) rotateX(28.49632deg) rotateY(-12.02312deg) rotateZ(-1.90820deg) translate(26.53616%, 9.18692%) matrix(0.72954337, 0.14695745, -0.38727305, 0.69813302, 0, 0);
+	border-radius:6px;
+}
+
+/* The transparent tablet body, drawn on top of the screenshot */
+.tfw .tfw-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Optional link overlay (keeps the image clickable) */
+.tfw .tfw-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+}
+
+/* ==========================================================================
+   Fallback: the frame image is missing (no file / no URL).
+   The screenshot is then shown as a normal, undistorted image instead of a
+   broken mockup. functions.php shows an admin notice in this case.
+   ========================================================================== */
+.tfw.tfw-plain::before {
+  display: none;
+}
+
+.tfw.tfw-plain {
+  overflow: visible;
+}
+
+.tfw.tfw-plain .tfw-shot {
+  position: static;
+  width: 100%;
+  height: auto;
+  transform: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE - no overlapping on tablet / mobile
+   --------------------------------------------------------------------------
+   The widget is often placed as a "floating" tablet over a hero section
+   (absolute position, negative margins, or a column that does not stack).
+   On a phone that makes it cover the headline and the next section.
+   Below 1025px the widget is forced back into the normal document flow and
+   made a normal block, so it can never sit on top of other content.
+   Desktop (>1025px) is untouched.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+
+  /* Elementor wraps every widget in <div class="elementor-element
+     elementor-widget elementor-widget-tfw_tablet_frame">. Neutralise any
+     absolute positioning / offset / transform that was set on it. */
+  .elementor-widget-tfw_tablet_frame {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    z-index: auto !important;
+    clear: both;
+  }
+
+  .elementor-widget-tfw_tablet_frame .tfw,
+  .elementor-widget-tfw_tablet_frame .elementor-widget-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none !important;
+  }
+
+  /* Keep the widget clear of the text above and of the next section. */
+  .elementor-widget-tfw_tablet_frame {
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+  }
+}

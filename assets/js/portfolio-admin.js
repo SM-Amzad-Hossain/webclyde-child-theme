@@ -174,6 +174,20 @@
 	});
 
 	/* ------------------------------------------------------------------
+	 * Dropdown "Other / custom" toggle
+	 * ---------------------------------------------------------------- */
+	$(document).on('change', '.wpc-select', function () {
+		var $control = $(this).closest('.wpc-select-control');
+		var $custom = $control.find('.wpc-select-custom');
+
+		if ($(this).val() === '__custom__') {
+			$custom.stop(true, true).slideDown(120).trigger('focus');
+		} else {
+			$custom.stop(true, true).slideUp(120);
+		}
+	});
+
+	/* ------------------------------------------------------------------
 	 * Drag-to-reorder
 	 * ---------------------------------------------------------------- */
 	function initSortables() {

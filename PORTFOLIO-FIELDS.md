@@ -27,7 +27,14 @@ appear below the content editor:
 - **Repeatable lists** (main problems / approach steps): click **+ Add problem** /
   **+ Add step** to add a row, **×** to remove one, and drag the **⋮⋮** handle to
   reorder. Press **Enter** in a row to add the next one.
-- **Services**: comma-separated — each service renders as a badge.
+- **Industry / Platform / Timeline**: pick a value from the dropdown — no typing
+  needed. If nothing fits, choose **Other (type your own)…** and a text box
+  appears for a custom value. Existing custom values reopen in that box, so
+  nothing is lost.
+- **Services**: tick the checkboxes for the services you provided — each renders
+  as a badge. Anything not in the list can go in the **Other services** box
+  (comma-separated). Checked presets and custom entries are merged, de-duplicated
+  and stored together.
 - **PageSpeed score**: a number from 0–100.
 
 Only the fields you fill in are shown on the front end — empty sections are
@@ -78,6 +85,28 @@ show. Leave **Portfolio ID** empty to use the current post.
 
 ## Customizing
 
+### Change the dropdown choices
+
+The preset lists for **Industry**, **Platform**, **Services** and **Timeline**
+are filterable, so you can add, remove or reorder options without editing the
+theme. Add this to your own plugin or the child theme's `functions.php`:
+
+```php
+add_filter( 'wpc_industry_options', function ( $options ) {
+    $options[] = 'Aerospace';      // add one
+    return $options;
+} );
+
+add_filter( 'wpc_services_options', function ( $options ) {
+    return [ 'Web Design', 'WordPress Development', 'SEO' ];  // replace the list
+} );
+```
+
+Available filters: `wpc_industry_options`, `wpc_platform_options`,
+`wpc_services_options`, `wpc_timeline_options`. Each receives the current list of
+strings and must return an array of strings. The **Other / custom** box is always
+available regardless of the presets, so editors can still enter anything.
+
 ### Turn off automatic display
 
 ```php
@@ -117,13 +146,20 @@ _wpc_client_designation
 Image fields store attachment IDs; `_wpc_gallery` is an ordered array of IDs;
 `_wpc_problems` and `_wpc_approach_steps` are arrays of strings.
 
+The dropdown fields store plain strings, so they are unchanged for REST /
+headless consumers: `_wpc_industry`, `_wpc_platform` and `_wpc_timeline` hold the
+chosen (or custom) value, and `_wpc_services` holds a **comma-separated** string
+(e.g. `"UX/UI Design, WooCommerce Development"`). When writing via REST you may
+send `_wpc_services` as either a comma-separated string or an array of strings —
+both are normalized to the same comma-separated format.
+
 ## Files
 
 ```
 inc/portfolio-meta.php          Field registry, meta boxes, save + sanitize, REST
 inc/portfolio-frontend.php      Renderer, shortcode, Elementor widget, auto-append
 assets/css/portfolio-admin.css  Admin meta-box styles
-assets/js/portfolio-admin.js    Media pickers, gallery + repeater controls
+assets/js/portfolio-admin.js    Media pickers, gallery + repeater + dropdown controls
 assets/css/portfolio.css        Front-end case-study styles
 assets/js/portfolio.js          Carousel behaviour
 single-portfolio.php            Single portfolio template

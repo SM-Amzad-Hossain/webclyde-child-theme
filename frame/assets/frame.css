@@ -1,0 +1,143 @@
+/* ==========================================================================
+   FRAME - ELEMENTOR WIDGET STYLES
+   ========================================================================== */
+
+.tfw {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0;
+  container-type: inline-size;
+  aspect-ratio: 1683 / 987;
+  height: auto;
+  min-height: 0;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  isolation: isolate;
+  z-index: 0;
+
+  /* perspective distance = 207.962% of the widget width */
+  --tfw-p: 2400px;
+  --tfw-dx: 5px;
+  --tfw-dy: -6px;
+}
+
+@supports (width: 1cqw) {
+  .tfw {
+    --tfw-p: 207.962cqw;
+    --tfw-dx: 0.4545cqw;
+    --tfw-dy: -0.5455cqw;
+  }
+}
+
+
+.tfw::before {
+  content: "";
+  display: block;
+  padding-top: 58.6453%;
+}
+
+/* The screenshot */
+.tfw .tfw-shot {
+  position: absolute;
+  left: 2px;
+  top: -4px;
+  width: 87.9382%;
+  height: 100%;
+  max-width: none;
+  min-width: 0;
+  display: block;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  transform: perspective(209.9620cqw) rotateX(28.49632deg) rotateY(-12.02312deg) rotateZ(-1.90820deg) translate(26.53616%, 9.18692%) matrix(0.72954337, 0.14695745, -0.38727305, 0.69813302, 0, 0);
+  border-radius: 6px;
+}
+
+/* The transparent frame body, drawn on top of the screenshot */
+.tfw .tfw-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Optional link overlay (keeps the image clickable) */
+.tfw .tfw-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+}
+
+/* ==========================================================================
+   Fallback: the frame image is missing (no file / no URL).
+   The screenshot is then shown as a normal, undistorted image instead of a
+   broken mockup. frame.php shows an admin notice in this case.
+   ========================================================================== */
+.tfw.tfw-plain::before {
+  display: none;
+}
+
+.tfw.tfw-plain {
+  overflow: visible;
+}
+
+.tfw.tfw-plain .tfw-shot {
+  position: static;
+  width: 100%;
+  height: auto;
+  transform: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE - no overlapping on tablet / mobile
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+
+  .elementor-widget-tfw_frame,
+  .elementor-widget-tfw_tablet_frame {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    z-index: auto !important;
+    clear: both;
+  }
+
+  .elementor-widget-tfw_frame .tfw,
+  .elementor-widget-tfw_frame .elementor-widget-container,
+  .elementor-widget-tfw_tablet_frame .tfw,
+  .elementor-widget-tfw_tablet_frame .elementor-widget-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none !important;
+  }
+
+  /* Keep the widget clear of the text above and of the next section. */
+  .elementor-widget-tfw_frame,
+  .elementor-widget-tfw_tablet_frame {
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+  }
+}

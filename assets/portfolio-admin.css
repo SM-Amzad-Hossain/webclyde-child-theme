@@ -1,0 +1,374 @@
+/**
+ * Webclyde Portfolio Admin Meta Box Styles
+ */
+
+.wc-portfolio-details-under-title {
+	margin: 20px 0 25px 0;
+	clear: both;
+}
+
+.wc-under-title-header {
+	margin-bottom: 12px;
+	padding-left: 2px;
+}
+
+.wc-under-title-header h3 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #1d2327;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.wc-meta-wrap {
+	display: flex;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	overflow: hidden;
+	margin: 15px 0;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Tabs Sidebar */
+.wc-meta-nav {
+	width: 220px;
+	background: #f6f7f7;
+	border-right: 1px solid #dcdcde;
+	padding: 12px 0;
+	flex-shrink: 0;
+}
+
+.wc-meta-nav button {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 12px 18px;
+	border: none;
+	background: transparent;
+	text-align: left;
+	font-size: 13px;
+	font-weight: 500;
+	color: #444;
+	cursor: pointer;
+	border-left: 3px solid transparent;
+	transition: all 0.15s ease-in-out;
+}
+
+.wc-meta-nav button:hover {
+	background: #eee;
+	color: #000;
+}
+
+.wc-meta-nav button.active {
+	background: #fff;
+	color: #2271b1;
+	border-left-color: #2271b1;
+	font-weight: 600;
+}
+
+.wc-meta-nav button .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	color: #646970;
+}
+
+.wc-meta-nav button.active .dashicons {
+	color: #2271b1;
+}
+
+/* Tabs Content Area */
+.wc-meta-content {
+	flex: 1;
+	padding: 24px 30px;
+	min-width: 0;
+}
+
+.wc-meta-tab-panel {
+	display: none;
+}
+
+.wc-meta-tab-panel.active {
+	display: block;
+}
+
+.wc-meta-tab-panel h3 {
+	margin: 0 0 8px 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.wc-meta-tab-panel .section-desc {
+	margin-top: 0;
+	margin-bottom: 20px;
+	color: #646970;
+	font-size: 13px;
+}
+
+/* Form Fields Grid */
+.wc-field-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 18px 24px;
+	margin-bottom: 20px;
+}
+
+.wc-field-col-full {
+	grid-column: 1 / -1;
+}
+
+.wc-field-group {
+	margin-bottom: 18px;
+}
+
+.wc-field-group label {
+	display: block;
+	font-weight: 600;
+	font-size: 13px;
+	color: #1d2327;
+	margin-bottom: 6px;
+}
+
+.wc-field-group .description {
+	display: block;
+	font-size: 12px;
+	color: #646970;
+	margin-top: 4px;
+}
+
+.wc-field-group input[type="text"],
+.wc-field-group input[type="url"],
+.wc-field-group input[type="number"],
+.wc-field-group select,
+.wc-field-group textarea:not(.wp-editor-area) {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	font-size: 13px;
+	box-sizing: border-box;
+}
+
+.wc-field-group textarea:not(.wp-editor-area) {
+	resize: vertical;
+	min-height: 85px;
+}
+
+/* Rich Text Editor Styling */
+.wc-field-group .wp-editor-wrap {
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wc-field-group .wp-editor-container {
+	border: none;
+}
+
+.wc-field-group .wp-editor-wrap textarea.wp-editor-area {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 10px 12px;
+	box-sizing: border-box;
+	min-height: 140px;
+}
+
+/* Image Upload Component */
+.wc-image-uploader {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	background: #fbfbfb;
+	border: 1px dashed #c3c4c7;
+	border-radius: 6px;
+	padding: 12px;
+}
+
+.wc-image-preview {
+	width: 80px;
+	height: 80px;
+	border-radius: 6px;
+	background: #eee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	flex-shrink: 0;
+	border: 1px solid #dcdcde;
+}
+
+.wc-image-preview img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.wc-image-preview .placeholder {
+	color: #8c8f94;
+	font-size: 28px;
+}
+
+.wc-image-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+/* Multi-Image Gallery */
+.wc-gallery-wrap {
+	background: #fbfbfb;
+	border: 1px dashed #c3c4c7;
+	border-radius: 8px;
+	padding: 16px;
+	margin-top: 10px;
+}
+
+.wc-gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.wc-gallery-item {
+	position: relative;
+	width: 100%;
+	padding-top: 100%;
+	border-radius: 6px;
+	overflow: hidden;
+	border: 1px solid #ccd0d4;
+	background: #eee;
+	cursor: grab;
+}
+
+.wc-gallery-item img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.wc-gallery-item .remove-gallery-img {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	background: rgba(214, 54, 56, 0.9);
+	color: #fff;
+	border: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0;
+}
+
+.wc-gallery-item .remove-gallery-img:hover {
+	background: #b32d2e;
+}
+
+/* Repeater Lists */
+.wc-repeater-wrap {
+	margin-top: 12px;
+}
+
+.wc-repeater-items {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.wc-repeater-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: #f9f9f9;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 10px 14px;
+}
+
+.wc-repeater-row .drag-handle {
+	color: #8c8f94;
+	cursor: move;
+}
+
+.wc-repeater-row input[type="text"] {
+	flex: 1;
+	margin: 0;
+}
+
+.wc-repeater-row .remove-row-btn {
+	color: #d63638;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 4px 8px;
+	font-size: 18px;
+	line-height: 1;
+	border-radius: 4px;
+}
+
+.wc-repeater-row .remove-row-btn:hover {
+	background: #fbeaea;
+}
+
+/* Approach Step Repeater */
+.wc-step-row {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	background: #f9f9f9;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 14px;
+	position: relative;
+}
+
+.wc-step-row-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.wc-step-badge {
+	font-weight: 700;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #2271b1;
+	background: #e7f3fb;
+	padding: 3px 8px;
+	border-radius: 4px;
+}
+
+.wc-step-row textarea {
+	width: 100%;
+	min-height: 60px;
+}
+
+#wc-approach-badge-box {
+	background: #fbfbfb;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 14px 16px;
+	margin-top: 10px;
+}
+
+
+

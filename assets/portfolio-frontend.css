@@ -1,0 +1,756 @@
+/**
+ * Webclyde Portfolio Case Study - Frontend Styles
+ */
+
+:root {
+	--wc-port-primary: #0f172a;
+	--wc-port-accent: #2563eb;
+	--wc-port-accent-light: #eff6ff;
+	--wc-port-success: #10b981;
+	--wc-port-text: #334155;
+	--wc-port-muted: #64748b;
+	--wc-port-border: #e2e8f0;
+	--wc-port-bg-soft: #f8fafc;
+	--wc-port-radius: 12px;
+	--wc-port-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.wc-port-case-study {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 40px 20px;
+	color: var(--wc-port-text);
+	font-family: inherit;
+	box-sizing: border-box;
+}
+
+/* 1. Meta & Overview Box */
+.wc-port-meta-card {
+	background: #ffffff;
+	border: 1px solid var(--wc-port-border);
+	border-radius: var(--wc-port-radius);
+	padding: 32px;
+	box-shadow: var(--wc-port-shadow);
+	margin-bottom: 40px;
+}
+
+.wc-port-meta-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid var(--wc-port-border);
+	margin-bottom: 24px;
+}
+
+.wc-port-logo-wrap {
+	max-width: 180px;
+	max-height: 70px;
+	display: flex;
+	align-items: center;
+}
+
+.wc-port-logo-wrap img {
+	max-width: 100%;
+	max-height: 60px;
+	object-fit: contain;
+}
+
+.wc-port-site-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	background: var(--wc-port-accent);
+	color: #ffffff !important;
+	padding: 10px 20px;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none !important;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.wc-port-site-btn:hover {
+	background: #1d4ed8;
+	transform: translateY(-1px);
+}
+
+.wc-port-description {
+	font-size: 17px;
+	line-height: 1.6;
+	color: var(--wc-port-muted);
+	margin-bottom: 28px;
+}
+
+.wc-port-meta-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 20px;
+}
+
+.wc-port-meta-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.wc-port-meta-label {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--wc-port-muted);
+}
+
+.wc-port-meta-value {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--wc-port-primary);
+}
+
+/* 2. Image Carousel & Gallery */
+.wc-port-carousel-wrap {
+	margin-bottom: 50px;
+	position: relative;
+	width: 100%;
+	user-select: none;
+}
+
+.wc-port-carousel-viewport {
+	overflow: hidden;
+	width: 100%;
+	border-radius: var(--wc-port-radius);
+	position: relative;
+}
+
+.wc-port-carousel-track {
+	display: flex;
+	gap: 20px;
+	will-change: transform;
+	align-items: stretch;
+}
+
+.wc-port-slide {
+	box-sizing: border-box;
+	border-radius: var(--wc-port-radius);
+	overflow: hidden;
+	border: 1px solid var(--wc-port-border);
+	box-shadow: var(--wc-port-shadow);
+	background: #fff;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	flex-shrink: 0;
+}
+
+.wc-port-slide:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.wc-port-slide img {
+	width: 100%;
+	height: 380px;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wc-port-slide:hover img {
+	transform: scale(1.02);
+}
+
+/* Navigation Arrows */
+.wc-port-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 44px;
+	height: 44px;
+	background: rgba(255, 255, 255, 0.95);
+	border: 1px solid var(--wc-port-border);
+	color: var(--wc-port-primary);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 26px;
+	line-height: 1;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+	transition: all 0.25s ease;
+	z-index: 15;
+	padding: 0 0 3px 0;
+}
+
+.wc-port-arrow:hover {
+	background: var(--wc-port-primary);
+	color: #ffffff;
+	border-color: var(--wc-port-primary);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+	transform: translateY(-50%) scale(1.08);
+}
+
+.wc-port-arrow-prev {
+	left: -18px;
+}
+
+.wc-port-arrow-next {
+	right: -18px;
+}
+
+@media (max-width: 1024px) {
+	.wc-port-arrow-prev {
+		left: 10px;
+	}
+
+	.wc-port-arrow-next {
+		right: 10px;
+	}
+}
+
+/* Dots Indicator */
+.wc-port-dots {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	margin-top: 20px;
+}
+
+.wc-port-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #cbd5e1;
+	cursor: pointer;
+	border: none;
+	padding: 0;
+	transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wc-port-dot:hover {
+	background: #94a3b8;
+}
+
+.wc-port-dot.active {
+	width: 28px;
+	border-radius: 12px;
+	background: var(--wc-port-accent);
+}
+
+/* Mode: Continuous Smooth Ticker / Marquee */
+.wc-port-carousel-wrap[data-mode="smooth_ticker"] .wc-port-carousel-track {
+	animation: wc-marquee-smooth 28s linear infinite;
+	width: max-content;
+}
+
+.wc-port-carousel-wrap[data-mode="smooth_ticker"]:hover .wc-port-carousel-track {
+	animation-play-state: paused;
+}
+
+@keyframes wc-marquee-smooth {
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+
+	100% {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+/* Multi-column Grid Alternative */
+.wc-port-gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 24px;
+}
+
+.wc-port-gallery-item {
+	border-radius: var(--wc-port-radius);
+	overflow: hidden;
+	box-shadow: var(--wc-port-shadow);
+	border: 1px solid var(--wc-port-border);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wc-port-gallery-item:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.wc-port-gallery-item img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+}
+
+/* 3. The Challenge */
+.wc-port-section {
+	margin-bottom: 50px;
+}
+
+.wc-port-section-title {
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--wc-port-primary);
+	margin: 0 0 16px 0;
+	line-height: 1.3;
+}
+
+.wc-port-section-desc {
+	font-size: 16px;
+	line-height: 1.7;
+	color: var(--wc-port-text);
+	margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   THE MAIN PROBLEMS - EXACT CARD DESIGN
+   ========================================================================== */
+.wc-port-problems-card {
+	background: #ffffff;
+	border-radius: 16px;
+	border: 1px solid #f1f5f9;
+	box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+	padding: 36px 32px 32px 32px;
+	box-sizing: border-box;
+	width: 100%;
+	transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.wc-port-problems-title {
+	font-size: 15px;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #25252d;
+	margin: 0 0 28px 0;
+	line-height: 1.25;
+}
+
+.wc-port-problems-list {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wc-port-problem-row,
+.wc-port-problem-item {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 500;
+	color: #25252d;
+	line-height: 1.45;
+}
+
+.wc-port-problem-badge,
+.wc-port-problem-num {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	min-width: 30px;
+	max-width: 30px;
+	border-radius: 50%;
+	background-color: #ffe6e7;
+	color: #d72736;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	flex-shrink: 0;
+	box-sizing: border-box;
+}
+
+.wc-port-problem-text {
+	font-size: 16px;
+	font-weight: 500;
+	color: #25252d;
+	line-height: 1.45;
+	flex: 1;
+}
+
+/* Hide legacy icon if present */
+.wc-port-problem-icon {
+	display: none !important;
+}
+
+@media (max-width: 767px) {
+	.wc-port-problems-card {
+		padding: 24px 20px 20px 20px;
+		border-radius: 14px;
+	}
+
+	.wc-port-problems-title {
+		font-size: 14px;
+		margin-bottom: 22px;
+	}
+
+	.wc-port-problems-list {
+		gap: 18px;
+	}
+
+	.wc-port-problem-row,
+	.wc-port-problem-item {
+		align-items: flex-start;
+		gap: 14px;
+		font-size: 15px;
+	}
+
+	.wc-port-problem-badge,
+	.wc-port-problem-num {
+		margin-top: 1px;
+	}
+
+	.wc-port-problem-text {
+		font-size: 15px;
+	}
+}
+
+/* 4. The Approach (Modern Cards Grid - Matching Design) */
+.wc-port-approach-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.wc-port-approach-card {
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 14px;
+	padding: 28px 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	transition: all 0.25s ease;
+	box-sizing: border-box;
+	min-width: 0;
+}
+
+.wc-port-approach-card:hover {
+	border-color: #cbd5e1;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.wc-port-approach-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: #dcfce7;
+	color: #059669;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	margin-bottom: 20px;
+	flex-shrink: 0;
+}
+
+.wc-port-approach-desc {
+	font-size: 14px;
+	line-height: 1.62;
+	color: #475569;
+	margin: 0;
+}
+
+/* 6th Slot Badge in Grid (e.g. WordPress Certified Developer) */
+.wc-port-approach-grid-badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 20px;
+	box-sizing: border-box;
+	min-height: 100%;
+}
+
+.wc-port-approach-badge-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+}
+
+.wc-port-approach-badge-img {
+	max-width: 220px;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	display: block;
+	filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.09));
+	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.wc-port-approach-grid-badge:hover .wc-port-approach-badge-img,
+.wc-port-approach-badge-link:hover .wc-port-approach-badge-img {
+	transform: translateY(-4px) scale(1.03);
+	filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.13));
+}
+
+@media (max-width: 1024px) {
+	.wc-port-approach-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+}
+
+@media (max-width: 640px) {
+	.wc-port-approach-grid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+
+	.wc-port-approach-card {
+		padding: 22px 20px;
+	}
+}
+
+.wc-port-approach-wrap {
+	display: grid;
+	grid-template-columns: 1fr 1.2fr;
+	gap: 40px;
+	align-items: center;
+}
+
+.wc-port-approach-image {
+	border-radius: var(--wc-port-radius);
+	overflow: hidden;
+	box-shadow: var(--wc-port-shadow);
+	border: 1px solid var(--wc-port-border);
+}
+
+.wc-port-approach-image img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+}
+
+.wc-port-steps-list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	position: relative;
+}
+
+.wc-port-step-item {
+	display: flex;
+	gap: 16px;
+	background: #ffffff;
+	border: 1px solid var(--wc-port-border);
+	border-radius: 10px;
+	padding: 18px 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.wc-port-step-num {
+	width: 36px;
+	height: 36px;
+	background: var(--wc-port-accent-light);
+	color: var(--wc-port-accent);
+	font-size: 14px;
+	font-weight: 700;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.wc-port-step-content h4 {
+	margin: 0 0 6px 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--wc-port-primary);
+}
+
+.wc-port-step-content p {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--wc-port-muted);
+}
+
+/* 5. Results & Metrics */
+.wc-port-results-card {
+	background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+	border-radius: var(--wc-port-radius);
+	padding: 40px;
+	color: #ffffff;
+	box-shadow: var(--wc-port-shadow);
+	margin-bottom: 50px;
+}
+
+.wc-port-results-card .wc-port-section-title {
+	color: #ffffff;
+}
+
+.wc-port-results-card .wc-port-section-desc {
+	color: #cbd5e1;
+}
+
+.wc-port-metrics-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	margin-top: 30px;
+}
+
+.wc-port-metric-box {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 10px;
+	padding: 24px;
+	text-align: center;
+	backdrop-filter: blur(8px);
+}
+
+.wc-port-metric-icon {
+	font-size: 24px;
+	color: #38bdf8;
+	margin-bottom: 8px;
+}
+
+.wc-port-metric-value {
+	font-size: 32px;
+	font-weight: 800;
+	color: #ffffff;
+	line-height: 1.1;
+	margin-bottom: 6px;
+}
+
+.wc-port-metric-label {
+	font-size: 13px;
+	font-weight: 500;
+	color: #94a3b8;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+/* 6. Client Review */
+.wc-port-review-card {
+	background: #ffffff;
+	border: 1px solid var(--wc-port-border);
+	border-radius: var(--wc-port-radius);
+	padding: 36px;
+	box-shadow: var(--wc-port-shadow);
+	margin-bottom: 40px;
+	position: relative;
+}
+
+.wc-port-quote-icon {
+	font-size: 48px;
+	line-height: 1;
+	color: #cbd5e1;
+	position: absolute;
+	top: 24px;
+	right: 28px;
+	font-family: Georgia, serif;
+	user-select: none;
+}
+
+.wc-port-client-quote {
+	font-size: 18px;
+	line-height: 1.7;
+	font-style: italic;
+	color: #1e293b;
+	margin: 0 0 24px 0;
+	position: relative;
+	z-index: 1;
+}
+
+.wc-port-review-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding-top: 20px;
+	border-top: 1px solid var(--wc-port-border);
+}
+
+.wc-port-client-profile {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.wc-port-client-avatar {
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--wc-port-accent);
+}
+
+.wc-port-client-info h4 {
+	margin: 0 0 2px 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--wc-port-primary);
+}
+
+.wc-port-client-info p {
+	margin: 0;
+	font-size: 13px;
+	color: var(--wc-port-muted);
+}
+
+.wc-port-review-proof img {
+	max-height: 48px;
+	max-width: 140px;
+	object-fit: contain;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+	.wc-port-approach-wrap {
+		grid-template-columns: 1fr;
+	}
+
+	.wc-port-metrics-grid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+
+	.wc-port-slider-item {
+		flex: 0 0 85%;
+	}
+}
+
+@media (max-width: 600px) {
+
+	.wc-port-meta-card,
+	.wc-port-results-card,
+	.wc-port-review-card {
+		padding: 22px;
+	}
+
+	.wc-port-meta-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.wc-port-section-title {
+		font-size: 22px;
+	}
+
+	.wc-port-client-quote {
+		font-size: 16px;
+	}
+}

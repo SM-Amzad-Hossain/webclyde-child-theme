@@ -734,3 +734,73 @@ function webclyde_render_portfolio_case_study( $post_id = 0 ) {
 	return $output;
 }
 
+/**
+ * 8. Shortcodes Registration
+ * Allows embedding individual portfolio sections or the complete case study
+ * into any page, post, or template using WordPress shortcodes.
+ */
+add_shortcode( 'portfolio_case_study', function( $atts ) {
+	$atts = shortcode_atts( [ 'id' => 0 ], $atts, 'portfolio_case_study' );
+	return webclyde_render_portfolio_case_study( (int) $atts['id'] );
+} );
+add_shortcode( 'webclyde_portfolio', function( $atts ) {
+	$atts = shortcode_atts( [ 'id' => 0 ], $atts, 'webclyde_portfolio' );
+	return webclyde_render_portfolio_case_study( (int) $atts['id'] );
+} );
+
+add_shortcode( 'portfolio_meta', function( $atts ) {
+	$atts = shortcode_atts( [
+		'id'               => 0,
+		'show_logo'        => true,
+		'show_button'      => true,
+		'button_text'      => '',
+		'show_description' => true,
+	], $atts, 'portfolio_meta' );
+	return webclyde_render_portfolio_meta( (int) $atts['id'], $atts );
+} );
+
+add_shortcode( 'portfolio_carousel', function( $atts ) {
+	$atts = shortcode_atts( [
+		'id'     => 0,
+		'layout' => 'slider',
+	], $atts, 'portfolio_carousel' );
+	return webclyde_render_portfolio_carousel( (int) $atts['id'], $atts );
+} );
+
+add_shortcode( 'portfolio_challenge', function( $atts ) {
+	$atts = shortcode_atts( [
+		'id'              => 0,
+		'show_title_desc' => true,
+		'problems_title'  => '',
+	], $atts, 'portfolio_challenge' );
+	return webclyde_render_portfolio_challenge( (int) $atts['id'], $atts );
+} );
+
+add_shortcode( 'portfolio_problems', function( $atts ) {
+	$atts = shortcode_atts( [
+		'id'         => 0,
+		'title'      => __( 'THE MAIN PROBLEMS', 'webclyde' ),
+		'title_tag'  => 'h3',
+		'show_title' => true,
+	], $atts, 'portfolio_problems' );
+	return webclyde_render_portfolio_problems( (int) $atts['id'], $atts );
+} );
+
+add_shortcode( 'portfolio_approach', function( $atts ) {
+	$atts = shortcode_atts( [
+		'id'        => 0,
+		'title_tag' => 'h3',
+	], $atts, 'portfolio_approach' );
+	return webclyde_render_portfolio_approach( (int) $atts['id'], $atts );
+} );
+
+add_shortcode( 'portfolio_results', function( $atts ) {
+	$atts = shortcode_atts( [ 'id' => 0 ], $atts, 'portfolio_results' );
+	return webclyde_render_portfolio_results( (int) $atts['id'] );
+} );
+
+add_shortcode( 'portfolio_review', function( $atts ) {
+	$atts = shortcode_atts( [ 'id' => 0 ], $atts, 'portfolio_review' );
+	return webclyde_render_portfolio_review( (int) $atts['id'] );
+} );
+

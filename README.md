@@ -72,6 +72,7 @@ The theme extends **Hello Elementor** (`hello-elementor`) and cleanly decouples 
 webclyde/
 ├── style.css                      # Child theme declaration (Template: hello-elementor)
 ├── functions.php                  # Bootloader enqueuing styles & requiring sub-modules
+├── single-portfolio.php           # Native out-of-the-box single portfolio case study template
 │
 ├── inc/                           # Portfolio Case Study Module
 │   ├── portfolio-cpt.php          # CPT & taxonomies registration, Elementor CPT support
@@ -332,16 +333,21 @@ Registered in [`inc/portfolio-widgets.php`](file:///home/amzad/Desktop/webclyde/
   - **6th Slot Badge Controls**:
     - Toggle badge on/off, custom image override, and external link assignment.
 
-### Additional Render Engine Widgets & Shortcodes
-[`inc/portfolio-render.php`](file:///home/amzad/Desktop/webclyde/inc/portfolio-render.php) contains modular rendering functions for all sections:
-- `webclyde_render_portfolio_meta($post_id)`
-- `webclyde_render_portfolio_carousel($post_id, $args)`
-- `webclyde_render_portfolio_challenge($post_id, $args)`
-- `webclyde_render_portfolio_problems($post_id, $args)`
-- `webclyde_render_portfolio_approach($post_id, $args)`
-- `webclyde_render_portfolio_results($post_id)`
-- `webclyde_render_portfolio_review($post_id)`
-- `webclyde_render_portfolio_case_study($post_id)`
+### Additional Render Engine Functions & Shortcodes
+[`inc/portfolio-render.php`](file:///home/amzad/Desktop/webclyde/inc/portfolio-render.php) contains modular rendering functions and native WordPress shortcodes for all sections. You can embed any component into standard WordPress content, Classic Editor pages, or Elementor Shortcode widgets:
+
+| Shortcode | Parameters | Output Component |
+|---|---|---|
+| `[portfolio_case_study]` or `[webclyde_portfolio]` | `id="123"` | Full case study layout with all sections |
+| `[portfolio_meta]` | `id="123"` `show_logo="1"` `show_button="1"` `show_description="1"` | Overview meta card (logo, site link, client specs) |
+| `[portfolio_carousel]` | `id="123"` `layout="slider"` | Smooth autoplay multi-image showcase carousel |
+| `[portfolio_challenge]` | `id="123"` `show_title_desc="1"` | Challenge narrative and problem list |
+| `[portfolio_problems]` | `id="123"` `title="THE MAIN PROBLEMS"` `title_tag="h3"` | Numbered circle badges problem card |
+| `[portfolio_approach]` | `id="123"` `title_tag="h3"` | Milestone execution cards grid with mint badges |
+| `[portfolio_results]` | `id="123"` | Results narrative & 3 benchmark metric boxes |
+| `[portfolio_review]` | `id="123"` | Client quote, author details, avatar & verification proof |
+
+*Note: If `id` is omitted, the shortcode automatically resolves the current post ID in single templates, Elementor Theme Builder previews, and query loops.*
 
 ---
 
